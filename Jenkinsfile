@@ -6,7 +6,7 @@ pipeline {
 
             steps {
                 withMaven() {
-                    sh 'mvn clean compile'
+                     sh "mvn clean install"
                 }
             }
         }
@@ -16,9 +16,16 @@ pipeline {
             steps {
                 withMaven() {
                     sh 'mvn test'
+                   
                 }
             }
         }
+        
+         post {
+      always {
+        junit '**/target/surefire-reports/*.xml'
+      }
+   } 
 
     }
 }
